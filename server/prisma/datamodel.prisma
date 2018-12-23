@@ -1,0 +1,42 @@
+type User {
+  id: ID! @unique
+  name: String!
+  mobile_no: String! @unique
+  dob: DateTime!
+  email: String! @unique
+  password: String!
+  tags: [Tag!]!
+  journal: [JournalEntry!]!
+  planner: [Entry!]!
+}
+
+type Entry {
+  id: ID! @unique
+  body: String!
+  start: DateTime!
+  end: DateTime!
+  tags: [Tag!]!
+  author: User!
+}
+
+type JournalEntry {
+  entry: Entry!
+  productivityLevel: PRODUCTIVITY_LEVEL @default(value: "THREE")
+  author: User!
+}
+
+type Tag {
+  id: ID! @unique
+  name: String!
+  productivityLevel: PRODUCTIVITY_LEVEL @default(value: "THREE")
+  color: String @default(value: "random")
+  author: User!
+}
+
+enum PRODUCTIVITY_LEVEL {
+  ONE
+  TWO
+  THREE
+  FOUR
+  FIVE
+}
